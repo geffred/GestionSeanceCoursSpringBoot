@@ -87,16 +87,17 @@ public class ProfsController {
 
         Optional<SeancesCours> seances = seancesCoursRepository.findByProfId(id);
 
-        if (seances.isEmpty()) {
+        if (!seances.isEmpty()) {
             
-            profRepository.deleteById(id);
-
-            errorMessageText =" suppression du prof "+seances.get().getProf().getNom() +"reussi";
-
-       }else{
-
-           errorMessageText =" Le prof " + seances.get().getProf().getNom() + "  effectue déjà des seances de cours ";
+            errorMessageText =" Le prof " + seances.get().getProf().getNom() + "  effectue déjà des seances de cours ";
        }
+       else{
+
+             errorMessageText =" suppression du prof "+seances.get().getProf().getNom() +"reussi";
+             profRepository.deleteById(id);    
+       }
+       
+       
 
         return"redirect:/profs"; 
     }
