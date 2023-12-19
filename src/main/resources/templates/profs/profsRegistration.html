@@ -16,8 +16,10 @@
             <div>
                 <label for="nom">Nom</label>
                 <input th:field="*{nom}" type="text" id="nom" placeholder="Nom"  required>
-                <span  th:errors="*{nom}"> </span>
-                <p th:text="${errorMessage}"></p>
+                <div>
+                    <span  th:errors="*{nom}"> </span>
+                    <span th:text="${errorMessage}"> </span>
+                </div>
             </div>
             <div>
                 <label for="prenom">Prenom</label>
@@ -48,10 +50,6 @@
         <div>
             <span th:text="${errorMessageText}"> </span>
         </div>
-
-        <ul>
-            <li th:each="error : ${errorMessage}" th:text="${error}"> </li>
-        </ul>
 
         <a th:href="@{/profs}"> Liste des professeurs </a>
     </main>

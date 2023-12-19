@@ -50,11 +50,8 @@ public class ProfsController {
 
             return"profs/profsRegistration";  
         }
-        else{
-            errorMessageText = "Enregistrement Reussi";
-            profRepository.save(prof);
-        }
-       
+        errorMessageText = "Enregistrement Reussi";
+        profRepository.save(prof);
         return"redirect:/profsRegistration";
     }
 
@@ -93,6 +90,8 @@ public class ProfsController {
         if (seances.isEmpty()) {
             
             profRepository.deleteById(id);
+
+            errorMessageText =" suppression du prof "+seances.get().getProf().getNom() +"reussi";
 
        }else{
 
