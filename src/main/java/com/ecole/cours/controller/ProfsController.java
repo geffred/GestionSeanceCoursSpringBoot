@@ -1,5 +1,4 @@
 package com.ecole.cours.controller;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +96,7 @@ public class ProfsController {
 
        }else{
 
-           deleteMessage =" Le prof " + seances.get().getProf().getNom() + "  effectue déjà des seances de cours ";
+           errorMessageText =" Le prof " + seances.get().getProf().getNom() + "  effectue déjà des seances de cours ";
        }
 
         return"redirect:/profs"; 
