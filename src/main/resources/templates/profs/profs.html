@@ -33,14 +33,20 @@
             </table>
             <span th:text="${deleteMessage}"></span>
         </div>
-
+        
         <a th:href="@{/profsRegistration}"> Enregistrer des professeurs </a>
+
+        <div>
+            <span th:text="${errorMessageText}"></span>
+        </div>
          
         <div>
             <span th:text="${updateMessage}"></span>
         </div>
         
-        <br>
+        <div>
+            <a th:href="@{/profs}">refresh</a>
+        </div>
         <a th:href="@{/}">Acceuil</a>
     </main>
 </body>

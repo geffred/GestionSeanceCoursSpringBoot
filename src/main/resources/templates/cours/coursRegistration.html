@@ -20,19 +20,16 @@
             <div>
                 <label for="nom">Nom UE</label>
                 <input type="text" id="nom" placeholder="Ex:SGBD " th:field="*{nom}" required>
+                <div>
+                    <span th:errors="*{nom}"></span>
+                </div>
             </div>
 
-            <span th:text="${hey}">
-
-            </span>
-            
             <input type="submit" value="Enregistrer" >
 
         </form>
 
-        <div th:each="error : ${errors}">
-            <span th:text="${error}"></span>
-        </div>
+        <span th:errors="errorMessage"></span>
 
         <a th:href="@{/cours}">Liste des cours</a>
 

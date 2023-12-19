@@ -32,24 +32,21 @@ public class Prof {
     private Long id ;
 
     @Column
-    @Pattern(regexp = "^([ ]*[a-zA-Z][ ]*)+$", message = "Seules les lettres sont acceptées")
-    @NotEmpty(message = "le champs nom ne doit pas être vide")
+    @Pattern(regexp = "^([a-zA-Z][ ]*)+$", message = "Seules les lettres sont acceptées")
     private String nom ;
 
     @Column
-    @Pattern(regexp = "^([ ]*[a-zA-Z][ ]*)+$", message = "Seules les lettres sont acceptées")
-    @NotEmpty(message = "le champs prenom ne doit pas être vide")
+    @Pattern(regexp = "^([a-zA-Z][ ]*)+$", message = "Ce champs doit contenir uniquement des chaines")
     private String prenom ;
 
-    @NotNull(message = "la date de naissance ne doit pas être null")
+    @NotNull(message = "La date ne doit pas etre vide")
     @Column(name = "Date_naissance")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateNaiss;
 
     @Column
-    @NotNull(message = "le champs sexe ne doit pas être null")
+    @NotNull(message = "Vous devez choisir un sexe")
     @Enumerated(EnumType.STRING)
-    @NotNull(message = " le champs sexe ne doit pas être vide ")
     private Gender sexe;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

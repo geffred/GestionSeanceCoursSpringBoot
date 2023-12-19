@@ -14,20 +14,27 @@
     <main>
         <form  action="/profsRegistrationFormUpdate" method="post" th:object="${prof}" >
 
-            
             <input type="hidden" th:field="*{id}">
-
             <div>
                 <label for="nom">Nom</label>
                 <input th:field="*{nom}" type="text" id="nom" placeholder="Nom"  required>
+                <div>
+                    <span  th:errors="*{nom}" class="error"> </span>
+                </div>
             </div>
             <div>
                 <label for="prenom">Prenom</label>
                 <input th:field="*{prenom}" type="text" id="prenom" placeholder="Prenom" required>
+                <div>
+                    <span th:errors="*{prenom}"  class="error"> </span>
+                </div>
             </div>
             <div>
                 <label for="dateNaiss">Date de naissance </label>
-                <input type="date" id="dateNaiss"  th:field="*{dateNaiss}" required>
+                <input th:field="*{dateNaiss}" type="date" id="dateNaiss">
+                <div>
+                    <span th:errors="*{dateNaiss}"> </span>
+                </div>
             </div>
 
             <div>
@@ -40,15 +47,27 @@
 
                 <span>
                     <label for="f">F</label>
-                    <input  th:field="*{sexe}" type="radio" id="f" th:value="F" required>
+                    <input  th:field="*{sexe}" type="radio" id="f" th:value="F" >
                 </span>
+
+                <div>
+                    <span th:errors="*{sexe}"> </span>
+                </div>
             </div>
             
             <input type="submit" value="Enregistrer">
         </form>
+
+        <span th:text="${errorMessage}"> </span>
+
+       <div>
+            <span th:text="${updateMessage}"> </span>
+       </div>
+       
+
        
         <a th:href="@{/profs}">liste des profs</a>
-
+      
        
     </main>
 </body>

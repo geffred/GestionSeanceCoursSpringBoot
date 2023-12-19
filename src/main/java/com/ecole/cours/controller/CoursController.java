@@ -1,5 +1,4 @@
 package com.ecole.cours.controller;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,7 @@ import jakarta.validation.Valid;
 
 @Controller
 public class CoursController {
-    
-    List<String> erreurs = new ArrayList<>();
+    private String msgError ="";
     @Autowired
     CoursRepository coursRepository;
     @Autowired
@@ -40,8 +38,8 @@ public class CoursController {
     public String coursRegistration(Model model ){
         
         model.addAttribute("cours", new Cours());
-        model.addAttribute("errors",erreurs);
-        erreurs = new ArrayList<>();
+        model.addAttribute("msgError",msgError);
+        msgError ="";
         return"cours/coursRegistration";
     }
 
@@ -54,21 +52,13 @@ public class CoursController {
 
         if (res.hasErrors()){ 
             
-            for (int i = 0 ; i<res.getAllErrors().size() ; i++) {
-                
-                erreurs.add(res.getAllErrors().get(i).getDefaultMessage());
-            }
+            msgError = " Une erreur est survenu lors de l'enregistrement" ;
         }
-        else if (!coursRepository.findByNom(nomCours).isEmpty()) {
-
-             erreurs.add("Ce cours existe déjà!");
-            
-        }  
+        
         else{
 
-            erreurs.add("Cours enregistrer avec success ");
             coursRepository.save(cours);
-           
+             msgError ="enregistrement reussi";
         } 
 
         return"redirect:/coursRegistration"; 

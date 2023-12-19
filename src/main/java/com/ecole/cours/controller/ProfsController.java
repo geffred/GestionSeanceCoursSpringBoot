@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 
 @Controller
 public class ProfsController {
+    private String updateMessage = "ss";
     private String errorMessageText = "";
     @Autowired
     private ProfRepository profRepository;
@@ -26,6 +27,8 @@ public class ProfsController {
     public String profs(Model model){
         List<Prof> profs = profRepository.findAll();
         model.addAttribute("profs", profs);
+        model.addAttribute("errorMessageText", errorMessageText);
+        errorMessageText ="";
         return "profs/profs";
     }
     
@@ -64,21 +67,33 @@ public class ProfsController {
 
             model.addAttribute("prof", optionalProf.get());
          }
+
             return "profs/profsUpdate";
         }
 
 
     @PostMapping("/profsRegistrationFormUpdate")
-    public String profsRegistrationFormUpdate(@Valid Prof updateProf, Errors errors){
+    public String profsRegistrationFormUpdate(Model model , @Valid Prof updateProf, Errors errors){
 
             String nomProf = updateProf.getNom().trim().toLowerCase();
             updateProf.setNom(nomProf);
             String prenomProf = updateProf.getPrenom().trim().toLowerCase();
             updateProf.setPrenom(prenomProf);
 
-            profRepository.save(updateProf);
-    
-            return"redirect:/profs";
+            if (errors.hasErrors()) {
+
+                updateMessage ="Une erreur est survenue";
+        
+            }
+            else{
+
+                profRepository.save(updateProf);
+                updateMessage ="Mise à jour réussi";
+                
+            }
+            model.addAttribute("updateMessage", updateMessage);
+            updateMessage =" ";
+            return"profs/profsUpdate";
     }
 
 
@@ -93,7 +108,7 @@ public class ProfsController {
        }
        else{
 
-             errorMessageText =" suppression du prof "+seances.get().getProf().getNom() +"reussi";
+             errorMessageText =" suppression du prof "+profRepository.findById(id).get().getNom() +"reussi";
              profRepository.deleteById(id);    
        }
        
