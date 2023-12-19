@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Seances de cours</title>
+</head>
+<body>
+    seances de cours
+
+   
+
+    <div>
+        <form action="/seancesCours" method="get">
+            <label for="nomCours">Recherche un Cours</label>
+            <input type="text" placeholder="Entrer un nom de cours" id="nomCours" name="nomCours" th:value="${nomSearch}">
+
+            <label for="jours">Jour</label>
+            <select id="jours" name="jours" >
+                <option th:text="${joursSearch} "> </option>
+                <option th:value="Lundi">Lundi</option>
+                <option th:value="Mardi">Mardi</option>
+                <option th:value="Mercredi">Mercredi</option>
+                <option th:value="Jeudi">Jeudi</option>
+                <option th:value="Vendredi">Vendredi</option>
+            </select>
+            <input type="submit" value="Rechercher">
+        </form>
+    </div>
+  
+
+    <table>
+        <tr>
+            <th> jours </th>
+            <th> Heure debut </th>
+            <th> Heure Fin </th>
+            <th> Professeurs </th>
+            <th> Cours </th>
+        </tr>
+        <tr th:each="seancesCours : ${seancesCours}">
+            <td th:text="${seancesCours.jours}"></td>
+            <td th:text="${seancesCours.heureDeb}"></td>
+            <td th:text="${seancesCours.heureFin}"></td>
+            <td>
+                <span th:text="${seancesCours.prof.id}"> </span>
+                <span th:text="${seancesCours.prof.nom}"> </span>
+                <span th:text="${seancesCours.prof.prenom}"> </span>
+                <span th:text="${seancesCours.prof.sexe}"> </span>
+            </td>
+            <td>
+                <span th:text="${seancesCours.cours.nom}"> </span>
+            </td>
+            <td><a th:href="@{/seancesCoursUpdate/{id}(id = ${seancesCours.id})}">Update</a></td>
+            <td><a th:href="@{/seancesCoursDelete/{id}(id = ${seancesCours.id})}">Delete</a></td>
+        </tr>
+    </table>
+    <a th:href="@{/seancesCoursRegistration}">Enregistrer les seances de cours</a><br>
+    <a th:href="@{/seancesCours}">Refresh</a>
+    <a th:href="@{/}">Acceuil</a>
+</body>
+</html>

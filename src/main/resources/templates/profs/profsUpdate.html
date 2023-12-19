@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Seances de cours</title>
+</head>
+<body>
+    <header>
+        Enregistrement des professeurs
+    </header>
+
+    <main>
+        <form  action="/profsRegistrationFormUpdate" method="post" th:object="${prof}">
+
+            
+            <input type="hidden" th:field="*{id}">
+
+            <div>
+                <label for="nom">Nom</label>
+                <input th:field="*{nom}" type="text" id="nom" placeholder="Nom"  required>
+            </div>
+            <div>
+                <label for="prenom">Prenom</label>
+                <input th:field="*{prenom}" type="text" id="prenom" placeholder="Prenom" required>
+            </div>
+            <div>
+                <label for="dateNaiss">Date de naissance </label>
+                <span th:text="${prof.dateNaiss}"> </span>
+                <input type="date" id="dateNaiss"  th:field="*{dateNaiss}">
+            </div>
+
+            <div>
+                <label for="sexe"> Sexe</label>
+
+                <span>
+                    <label for="m">M</label>
+                    <input th:field="*{sexe}" type="radio" id="m" th:value="M">
+                </span>
+
+                <span>
+                    <label for="f">F</label>
+                    <input  th:field="*{sexe}" type="radio" id="f" th:value="F">
+                </span>
+            </div>
+            
+            <input type="submit" value="Enregistrer">
+        </form>
+
+       
+    </main>
+</body>
+</html>
