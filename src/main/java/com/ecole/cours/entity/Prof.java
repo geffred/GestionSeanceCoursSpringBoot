@@ -41,12 +41,13 @@ public class Prof {
     @NotEmpty(message = "le champs prenom ne doit pas être vide")
     private String prenom ;
 
-
+    @NotNull(message = "la date de naissance ne doit pas être null")
     @Column(name = "Date_naissance")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateNaiss;
 
     @Column
+    @NotNull(message = "le champs sexe ne doit pas être null")
     @Enumerated(EnumType.STRING)
     @NotNull(message = " le champs sexe ne doit pas être vide ")
     private Gender sexe;

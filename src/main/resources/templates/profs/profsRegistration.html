@@ -16,7 +16,8 @@
             <div>
                 <label for="nom">Nom</label>
                 <input th:field="*{nom}" type="text" id="nom" placeholder="Nom"  required>
-                <span th:errors = "*{nom}"> </span>
+                <span  th:errors="*{nom}"> </span>
+                <p th:text="${errorMessage}"></p>
             </div>
             <div>
                 <label for="prenom">Prenom</label>
@@ -24,7 +25,7 @@
             </div>
             <div>
                 <label for="dateNaiss">Date de naissance </label>
-                <input th:field="*{dateNaiss}" type="date" id="dateNaiss">
+                <input th:field="*{dateNaiss}" type="date" id="dateNaiss" required>
             </div>
 
             <div>
@@ -32,17 +33,25 @@
 
                 <span>
                     <label for="m">M</label>
-                    <input th:field="*{sexe}" type="radio" id="m" th:value="M">
+                    <input th:field="*{sexe}" type="radio" id="m" th:value="M" required>
                 </span>
 
                 <span>
                     <label for="f">F</label>
-                    <input  th:field="*{sexe}" type="radio" id="f" th:value="F">
+                    <input  th:field="*{sexe}" type="radio" id="f" th:value="F" required>
                 </span>
             </div>
             
             <input type="submit" value="Enregistrer">
         </form>
+
+        <div>
+            <span th:text="${errorMessageText}"> </span>
+        </div>
+
+        <ul>
+            <li th:each="error : ${errorMessage}" th:text="${error}"> </li>
+        </ul>
 
         <a th:href="@{/profs}"> Liste des professeurs </a>
     </main>

@@ -1,8 +1,7 @@
 package com.ecole.cours.controller;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,18 +9,15 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import com.ecole.cours.entity.Prof;
 import com.ecole.cours.entity.SeancesCours;
 import com.ecole.cours.repository.ProfRepository;
 import com.ecole.cours.repository.SeancesCoursRepository;
-
 import jakarta.validation.Valid;
 
 @Controller
 public class ProfsController {
-
-    private String deleteMessage = " ";
+    private String errorMessageText = "";
     @Autowired
     private ProfRepository profRepository;
     @Autowired
@@ -31,8 +27,6 @@ public class ProfsController {
     public String profs(Model model){
         List<Prof> profs = profRepository.findAll();
         model.addAttribute("profs", profs);
-        model.addAttribute("deleteMessage", deleteMessage);
-        deleteMessage = " ";
         return "profs/profs";
     }
     
@@ -40,6 +34,8 @@ public class ProfsController {
     public String profRegistration(Model model){
 
         model.addAttribute("prof",new Prof());
+        model.addAttribute("errorMessageText", errorMessageText);
+        errorMessageText = "";
         return "profs/profsRegistration";
     }
 
@@ -53,32 +49,40 @@ public class ProfsController {
 
         if (errors.hasErrors()) {
 
-            return"redirect:/profsRegistration";
-            
+            return"profs/profsRegistration";  
         }
-        profRepository.save(prof);
+        else{
+            errorMessageText = "Enregistrement Reussi";
+            profRepository.save(prof);
+        }
+       
         return"redirect:/profsRegistration";
     }
 
     @GetMapping("/profsUpdate/{id}")
     public String profsUpdate(@PathVariable Long id , Model model){
 
-        Optional<Prof> optionalProf = profRepository.findById(id);
+            Optional<Prof> optionalProf = profRepository.findById(id);
 
-      if (optionalProf.isPresent()) {
+        if (optionalProf.isPresent()) {
 
             model.addAttribute("prof", optionalProf.get());
-      }
+         }
+            return "profs/profsUpdate";
+        }
 
-        return "profs/profsUpdate";
-    }
 
     @PostMapping("/profsRegistrationFormUpdate")
-    public String profsRegistrationFormUpdate(Prof updateProf ){
+    public String profsRegistrationFormUpdate(@Valid Prof updateProf, Errors errors){
 
-        profRepository.save(updateProf);
-     
-        return"redirect:/profs";
+            String nomProf = updateProf.getNom().trim().toLowerCase();
+            updateProf.setNom(nomProf);
+            String prenomProf = updateProf.getPrenom().trim().toLowerCase();
+            updateProf.setPrenom(prenomProf);
+
+            profRepository.save(updateProf);
+    
+            return"redirect:/profs";
     }
 
 
