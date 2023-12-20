@@ -1,17 +1,15 @@
 package com.ecole.cours.controller;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.ecole.cours.entity.Cours;
 import com.ecole.cours.entity.JourSemaine;
 import com.ecole.cours.entity.Prof;
@@ -27,6 +25,7 @@ import jakarta.validation.Valid;
 @Controller
 public class SeancesCoursController {
     
+    private String msgError ="";
     @Autowired
     private SeancesCoursRepository seancesCoursRepository;
     @Autowired
@@ -68,16 +67,27 @@ public class SeancesCoursController {
         model.addAttribute("seancesCours", new SeancesCours());
         model.addAttribute("profs", profs);
         model.addAttribute("courses", courses);
+        model.addAttribute("msgError", msgError);
+        msgError ="";
         return "seancesCours/seancesCoursRegistration";
     }
 
     @PostMapping("/seancesCoursRegistrationForm")
-    public String seancesCoursRegistrationForm(@Valid SeancesCours seancesCours){
-        
-       LocalTime heureDeb = seancesCours.getHeureDeb();
+    public String seancesCoursRegistrationForm(@Valid SeancesCours seancesCours, Errors errors){
+      
+        if (errors.hasErrors()) {
 
-        System.out.println(heureDeb);
-        seancesCoursRepository.save(seancesCours);        
+            msgError="Les heures de cours ne doivent pas etre vide";
+            
+        }
+        else{
+
+             msgError="Enregistrement reussi";
+             seancesCoursRepository.save(seancesCours);   
+        }
+        
+       
+        
         return"redirect:/seancesCoursRegistration";
     }
     

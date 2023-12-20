@@ -27,12 +27,15 @@
 
             <div>
                 <label for="heureDeb">Heure de debut</label>
-                <input type="time" id="heureDeb" required th:field="*{heureDeb}">
+                <input type="time" id="heureDeb" th:field="*{heureDeb}" >
+                <div>
+                    <span th:errors="*{heureDeb}"> </span>
+                </div>
             </div>
 
             <div>
                 <label for="heureFin">Heure de fin</label>
-                <input type="time" id="heureFin" th:field="*{heureFin}">
+                <input type="time" id="heureFin" th:field="*{heureFin}" >
             </div>
 
             <div>
@@ -55,8 +58,12 @@
                 </select>
             </div>
             
+          
             <input type="submit" value="Enregistrer">
         </form>
+        <div>
+            <span th:text="${msgError}"></span>
+        </div>
         <a th:href="@{/seancesCours}">seances de cours</a>
     </main>
 </body>

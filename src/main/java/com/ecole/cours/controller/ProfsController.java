@@ -16,7 +16,7 @@ import jakarta.validation.Valid;
 
 @Controller
 public class ProfsController {
-    private String updateMessage = "ss";
+    private String updateMessage = " ";
     private String errorMessageText = "";
     @Autowired
     private ProfRepository profRepository;
@@ -100,11 +100,14 @@ public class ProfsController {
     @GetMapping("/profsDelete/{id}")
     public String profsDelete(@PathVariable Long id){
 
-        Optional<SeancesCours> seances = seancesCoursRepository.findByProfId(id);
+       List<SeancesCours> seances = seancesCoursRepository.findByProfId(id);
 
         if (!seances.isEmpty()) {
             
-            errorMessageText =" Le prof " + seances.get().getProf().getNom() + "  effectue déjà des seances de cours ";
+            errorMessageText =" Le prof "
+                                         +profRepository.findById(id).get().getNom()+ 
+                                         " " + profRepository.findById(id).get().getPrenom()+
+                                "effectue déjà des seances de cours ";
        }
        else{
 

@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
@@ -23,9 +22,8 @@ public class Cours {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp = "^([ ]*[a-zA-Z][ ]*)+$", message = "Seules les lettres sont acceptées")
+    @Pattern(regexp = "^([a-zA-Z][ ]*)+$", message = "Seules les lettres sont acceptées")
     @Column(unique = true)
-    @NotEmpty(message = "Le champs Nom ne doit pas être vide")
     private String nom;
 
     @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)

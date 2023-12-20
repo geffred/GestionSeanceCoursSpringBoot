@@ -1,9 +1,6 @@
 package com.ecole.cours.entity;
-
 import java.time.LocalTime;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "seances")
@@ -30,10 +28,13 @@ public class SeancesCours {
     private JourSemaine jours;
     
     @Column
+    @NotNull(message = "ce champs ne doit pas etre vide")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime heureDeb;
 
     @Column
-    @DateTimeFormat(pattern = "HH:mm:ss")
+    @NotNull(message = "ce champs ne doit pas etre vide")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime heureFin;
     
     @ManyToOne(fetch = FetchType.LAZY)
