@@ -22,6 +22,7 @@ public interface SeancesCoursRepository extends JpaRepository<SeancesCours , Lon
     List<SeancesCours> findByCoursNomContaining(String c);
     List<SeancesCours> findByProfId(Long id);
     List<SeancesCours> findByCoursId(Long id);
+    List<SeancesCours> findByProfNom(String nom);
     //List<SeancesCours> findByJoursContaining(JourSemaine c);
     
     

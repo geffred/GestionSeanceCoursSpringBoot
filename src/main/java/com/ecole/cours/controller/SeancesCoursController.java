@@ -76,27 +76,55 @@ public class SeancesCoursController {
 
     @PostMapping("/seancesCoursRegistrationForm")
     public String seancesCoursRegistrationForm(@Valid SeancesCours seancesCours, Errors errors){
+
+        String nomProf = seancesCours.getProf().getNom();
       
-        int heureDeb = seancesCours.getHeureDeb().getHour()*60 + seancesCours.getHeureDeb().getMinute();
-        int heureFin = seancesCours.getHeureFin().getHour()*60 + seancesCours.getHeureFin().getMinute();
+        List<SeancesCours> seances = seancesCoursRepository.findByProfNom(nomProf);
 
         if (errors.hasErrors()) {
 
             msgError="Les heures de cours ne doivent pas etre vide";
             
         }
-        else if(heureDeb < HEUREMIN || heureFin > HEUREMAX){
+        else {
 
-             msgError="Les de cours s'éffectue de 9h à 18h";
-        }
-        else{
+             int heureDeb = seancesCours.getHeureDeb().getHour()*60 + seancesCours.getHeureDeb().getMinute();
+             int heureFin = seancesCours.getHeureFin().getHour()*60 + seancesCours.getHeureFin().getMinute();
 
-             msgError="Enregistrement reussi";
-             seancesCoursRepository.save(seancesCours);   
+             if (!seances.isEmpty()) {
+           
+                    for (SeancesCours s : seances) {
+                        int hd = s.getHeureDeb().getHour()*60 +  s.getHeureDeb().getMinute() ;
+                        int hf = s.getHeureFin().getHour()*60 +  s.getHeureFin().getMinute() ;
+                        
+                        if (((heureDeb>=hd && heureDeb <= hf)|| (heureFin>=hd && heureFin <= hf)) && (s.getJours() == seancesCours.getJours() ) ) {
+                        
+                            msgError="Ce professeur n'est pas disponible à cette horaire";
+                            return"redirect:/seancesCoursRegistration";
+                           
+                        }
+                        
+                    }
+                }
+
+             if (heureDeb < HEUREMIN || heureFin > HEUREMAX) {
+                
+                msgError="Les de cours s'éffectue de 9h à 18h";
+             }
+             else if( heureDeb > heureFin){
+
+                msgError="l'heure de début doit etre inférieur à l'heure de fin";
+             }
+
+             else{
+
+                msgError="Enregistrement reussi";
+                seancesCoursRepository.save(seancesCours);  
+
+            }
+             
         }
-        
        
-        
         return"redirect:/seancesCoursRegistration";
     }
     
@@ -114,6 +142,7 @@ public class SeancesCoursController {
         List<Cours> courses = coursRepository.findAll();
         model.addAttribute("profs", profs);
         model.addAttribute("courses", courses);
+       
 
         return "seancesCours/seancesCoursUpdate";
     }
@@ -124,30 +153,66 @@ public class SeancesCoursController {
 
         List<Prof> profs = profRepository.findAll();
         List<Cours> courses = coursRepository.findAll();
+        String nomProf = seancesCoursUpdate.getProf().getNom();
+        List<SeancesCours> seances = seancesCoursRepository.findByProfNom(nomProf);
+
+         model.addAttribute("profs", profs);
+         model.addAttribute("courses", courses);
+         
+        
 
         int heureDeb = seancesCoursUpdate.getHeureDeb().getHour()*60 + seancesCoursUpdate.getHeureDeb().getMinute();
         int heureFin = seancesCoursUpdate.getHeureFin().getHour()*60 + seancesCoursUpdate.getHeureFin().getMinute();
-        
+
+        if (!seances.isEmpty()) {
+           
+                    for (SeancesCours s : seances) {
+                        int hd = s.getHeureDeb().getHour()*60 +  s.getHeureDeb().getMinute() ;
+                        int hf = s.getHeureFin().getHour()*60 +  s.getHeureFin().getMinute() ;
+
+                        if (s.getId() == seancesCoursUpdate.getId() ) {
+                            
+                                continue;
+                        }
+                        
+                        if (((heureDeb>=hd && heureDeb <= hf)|| (heureFin>=hd && heureFin <= hf)) && (s.getJours() == seancesCoursUpdate.getJours() ) ) {
+                        
+                            msgError="Ce professeur n'est pas disponible à cette horaire";
+                            model.addAttribute("msgError", msgError);
+                            msgError ="";
+                            return "seancesCours/seancesCoursUpdate";
+                           
+                        }
+                        
+                    }
+        }
+                
         if((heureDeb < HEUREMIN || heureFin > HEUREMAX)){
 
-             msgError="Les de cours s'éffectue de 9h à 18h ";
+            msgError="Les de cours s'éffectue de 9h à 18h ";
+            msgError="Ce professeur n'est pas disponible à cette horaire";
+            model.addAttribute("msgError", msgError);
+            msgError ="";
         }
         else if(  heureDeb > heureFin ){
 
-             msgError=" l'heure de début doit etre inférieur à l'heure de fin";
+            msgError=" l'heure de début doit etre inférieur à l'heure de fin";
+            model.addAttribute("msgError", msgError);
+            msgError ="";
         }
        
         else{
 
              msgError="Enregistrement reussi";
+             model.addAttribute("msgError", msgError);
+             msgError ="";
              seancesCoursRepository.save(seancesCoursUpdate);   
         }
 
-         model.addAttribute("profs", profs);
-         model.addAttribute("courses", courses);
-         model.addAttribute("msgError", msgError);
-         msgError ="";
-         
+        
+
+       
+
          return "seancesCours/seancesCoursUpdate";
     }
 
@@ -159,6 +224,5 @@ public class SeancesCoursController {
         return "redirect:/seancesCours";
     }
 
-    
 
 }
