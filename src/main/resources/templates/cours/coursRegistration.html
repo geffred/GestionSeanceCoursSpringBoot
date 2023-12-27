@@ -4,41 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Liste des cours</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/profs_registration_style.css">
+    <title>Enregistrement des cours</title>
 </head>
 <body>
-    Enregistrement du cours
-
-    <header>
-
+    <header class="container-fluid ">
+        <nav class="row bg-dark d-flex align-items-center">
+            <div class="col-lg-2 col-12 logo d-flex justify-content-center my-2">
+                <a th:href="@{/}">
+                    <span>Free</span>
+                    <span>School</span>
+                </a>
+            </div>
+            <div class="col-lg-10 col-12  menu">
+                <a th:href="@{/profs}" class=" align-self-stretch">Professeurs</a>
+                <a th:href="@{/cours}" class=" align-self-stretch">Cours</a>
+                <a th:href="@{/seancesCours}" class=" align-self-stretch">Seances de cours</a>
+                <a href="#contact" class=" align-self-stretch">Nous contacter</a>
+                <a href="#contact" class=" align-self-stretch">About</a>
+                <a href="http://www.paypal.me/Geffred" class=" align-self-stretch d-flex align-items-center donate"> 
+                    <span>Donate</span>
+                    <img src="../img/wallet.svg" class="mx-2" alt="wallet" width="30" height="30">
+                </a>
+            </div>
+            <div class="col-lg-10 col-12  menu " id="mobile">
+                <a th:href="@{/profs}" class=" align-self-stretch">Professeurs</a>
+                <a th:href="@{/cours}" class=" align-self-stretch">Cours</a>
+                <a th:href="@{/seancesCours}" class=" align-self-stretch">Seances de cours</a>
+            </div>
+        </nav>
     </header>
 
-    <main>
-
-        <form action="/coursRegistrationForm" method="post" th:object="${cours}">
-
-            <div>
-                <label for="nom">Nom UE</label>
-                <input type="text" id="nom" placeholder="Ex:SGBD " th:field="*{nom}" required>
+    <main class="container">
+      
+       <div class="registration">
+            <div class="d-flex justify-content-center"> <img src="../img/book_cours.svg" alt="book" width="50" height="50"> </div>
+            <form action="/coursRegistrationForm" method="post" th:object="${cours}">
                 <div>
-                    <span th:errors="*{nom}" class="error"></span>
+                    <label for="nom">Nom</label>
+                    <input class="form-control" type="text" id="nom" placeholder="Ex:SGBD " th:field="*{nom}" required>
+                    <div>
+                        <span th:errors="*{nom}" class="error"></span>
+                    </div>
                 </div>
-            </div>
 
-            <input type="submit" value="Enregistrer" >
+                <div class="d-flex justify-content-between boutton">
+                    <a th:href="@{/cours}"><img src="../img/back-square.svg" alt="back" width="50" height="50"></a>
+                    <input type="submit" class="bt" value="Enregistrer" >
+                </div>
 
-                <span th:text="${errorMessage}"></span>
+                <div>
+                    <span th:text="${msgError}"></span>
+                    <span th:text="${errorMessage}"></span>
+                </div>
 
-        </form>
+            </form>
 
-        <div>
-            <span th:text="${msgError}"></span>
-        </div>
-
-        <a th:href="@{/cours}">Liste des cours</a>
-
+       </div>
         
     </main>
+
+    <footer class="container-fluid px-5  py-3 bg-dark">
+        <div class="row">
+             <div class="col-lg-12 col-12 footer_01 " id="contact">
+                 <a th:href="@{/}">
+                     <span>Free</span>
+                     <span>School</span>
+                 </a>
+                 <span>VOUS AVEZ UN TRUC À NOUS DEMANDER ?</span>
+                
+             </div>
+             <div class="row d-flex align-items-center link my-3 " style="margin:0px auto">
+                 <div class="col-lg-6 col-12 d-flex  flex-column">
+                     <span> Rue Gatti de Gamond 95, 1180 Uccle </span>
+                     <div class="adress">
+                         <a href="tel:+320467774391">+320467774391</a>
+                         <a href="#">tchapda20@gmail.com</a> 
+                     </div>
+                 </div>
+                 <div class="col-lg-6 col-12  social">
+                         <div class="my-2">
+                             <a target="_blank" href="https://www.linkedin.com/in/geffred-tchapda-5866b6174/"><img src="../img/linkedin.svg" alt="linkedin" width="30" height="30" class="mx-2"></a>
+                             <a target="_blank" href="https://www.youtube.com/@cgcm.studio/videos"><img src="../img/youtube.svg" alt="youtube" width="30" height="30" class="mx-2"></a>
+                             <a target="_blank" href="https://www.instagram.com/geffred.tchapda/"><img src="../img/instagram.svg" alt="instagram" width="30" height="30" class="mx-2" ></a>
+                         </div> 
+                 </div>
+             </div>
+             <hr>
+             <div class="d-flex justify-content-center copyright">
+                 <span>  &copy Copyright tous les droits reservés à Tchapda .N Geffred</span>
+             </div>
+        </div>
+    </footer>
+   
     
     
 </body>

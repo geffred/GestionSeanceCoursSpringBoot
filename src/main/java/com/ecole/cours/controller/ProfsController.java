@@ -82,7 +82,7 @@ public class ProfsController {
 
             if (errors.hasErrors()) {
 
-                updateMessage ="Une erreur est survenue";
+                updateMessage =" Une erreur est survenue ";
         
             }
             else{
@@ -104,14 +104,14 @@ public class ProfsController {
 
         if (!seances.isEmpty()) {
             
-            errorMessageText =" Le prof "
+            errorMessageText =" Le professeur "
                                          +profRepository.findById(id).get().getNom()+ 
                                          " " + profRepository.findById(id).get().getPrenom()+
-                                "effectue déjà des seances de cours ";
+                                " éffectue déjà des seances de cours ";
        }
        else{
 
-             errorMessageText =" suppression du prof "+profRepository.findById(id).get().getNom() +"reussi";
+             errorMessageText =" suppression du professeur "+profRepository.findById(id).get().getNom() +" reussi";
              profRepository.deleteById(id);    
        }
        

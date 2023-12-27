@@ -1,0 +1,70 @@
+main .registration{
+    max-width: 500px;
+    margin: 50px auto;
+    border: 1px solid rgba(43, 43, 43, 0.448);
+    padding: 15px;
+    border-radius: 10px;
+    
+}
+
+main form .boutton input{
+
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(230, 0, 0);
+    color: white;
+    border: 1px solid transparent;
+    transition: background .2s ease , transform .5s ease;
+}
+
+main form .boutton input:hover{
+
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transform: scale(.95);
+}
+
+main form .boutton img{
+
+    transition: transform .2s ease;
+}
+
+main form .boutton img:hover{
+
+    transform:  scale(.95);
+}
+
+main form input:not(.bt):focus{
+
+    box-shadow: 0px 0px 5px rgba(255, 0, 0, 0.586);
+    border-color:rgba(255, 0, 0, 0.708) ;
+}
+
+main form select:not(.bt):focus{
+
+    box-shadow: 0px 0px 5px rgba(255, 0, 0, 0.613);
+    border-color:rgba(255, 0, 0, 0.652) ;
+}
+
+main form input:not(.bt){
+
+    border:1px solid rgba(255, 0, 0, 0.652) ;
+}
+
+main form select:not(.bt){
+
+    border:1px solid rgba(255, 0, 0, 0.652) ;
+}
+
+main form input:not(.bt):hover{
+
+    box-shadow: 5px 5px 1px rgba(230, 0, 0, 0.595);
+}
+main form select:not(.bt):hover{
+
+    box-shadow: 5px 5px 1px rgba(230, 0, 0, 0.595);
+}
+
+

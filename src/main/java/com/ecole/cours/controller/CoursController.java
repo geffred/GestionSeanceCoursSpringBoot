@@ -126,7 +126,7 @@ public class CoursController {
         }
         else{
 
-            deleteMessage = "le cours "+coursRepository.findById(id).get().getNom() + " existe déjà dans une seance de cours";
+            deleteMessage = " Le cours "+coursRepository.findById(id).get().getNom() + " existe déjà dans une seance de cours.";
         }
 
         return"redirect:/cours";

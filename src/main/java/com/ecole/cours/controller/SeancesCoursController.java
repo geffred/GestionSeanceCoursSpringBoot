@@ -32,6 +32,8 @@ public class SeancesCoursController {
     private ProfRepository profRepository;
     @Autowired
     private CoursRepository coursRepository;
+    private final int HEUREMIN =540;
+    private final int HEUREMAX=1080; 
     
     @GetMapping("/seancesCours")
     public String seancesCours(Model model , @RequestParam(name = "nomCours", defaultValue = "") String nomCours , @RequestParam( name = "jours" , defaultValue = "") JourSemaine jours){
@@ -49,7 +51,7 @@ public class SeancesCoursController {
                  seancesCours = seancesCoursRepository.findByCoursNomContaining(nomCours);
             }
        
-        
+        model.addAttribute("nomSearch",nomCours);
         model.addAttribute("joursSearch", jours);
         model.addAttribute("seancesCours", seancesCours);
         model.addAttribute("seancesFilter",new SeancesCours());
@@ -75,10 +77,17 @@ public class SeancesCoursController {
     @PostMapping("/seancesCoursRegistrationForm")
     public String seancesCoursRegistrationForm(@Valid SeancesCours seancesCours, Errors errors){
       
+        int heureDeb = seancesCours.getHeureDeb().getHour()*60 + seancesCours.getHeureDeb().getMinute();
+        int heureFin = seancesCours.getHeureFin().getHour()*60 + seancesCours.getHeureFin().getMinute();
+
         if (errors.hasErrors()) {
 
             msgError="Les heures de cours ne doivent pas etre vide";
             
+        }
+        else if(heureDeb < HEUREMIN || heureFin > HEUREMAX){
+
+             msgError="Les de cours s'éffectue de 9h à 18h";
         }
         else{
 
@@ -111,11 +120,35 @@ public class SeancesCoursController {
 
 
     @PostMapping("/seancesCoursRegistrationFormUpdate")
-    public String seancesCoursRegistrationFormUpdate(SeancesCours seancesCoursUpdate){
+    public String seancesCoursRegistrationFormUpdate(Model model , SeancesCours seancesCoursUpdate ){
 
-        seancesCoursRepository.save(seancesCoursUpdate);
+        List<Prof> profs = profRepository.findAll();
+        List<Cours> courses = coursRepository.findAll();
 
-        return "redirect:/seancesCours";
+        int heureDeb = seancesCoursUpdate.getHeureDeb().getHour()*60 + seancesCoursUpdate.getHeureDeb().getMinute();
+        int heureFin = seancesCoursUpdate.getHeureFin().getHour()*60 + seancesCoursUpdate.getHeureFin().getMinute();
+        
+        if((heureDeb < HEUREMIN || heureFin > HEUREMAX)){
+
+             msgError="Les de cours s'éffectue de 9h à 18h ";
+        }
+        else if(  heureDeb > heureFin ){
+
+             msgError=" l'heure de début doit etre inférieur à l'heure de fin";
+        }
+       
+        else{
+
+             msgError="Enregistrement reussi";
+             seancesCoursRepository.save(seancesCoursUpdate);   
+        }
+
+         model.addAttribute("profs", profs);
+         model.addAttribute("courses", courses);
+         model.addAttribute("msgError", msgError);
+         msgError ="";
+         
+         return "seancesCours/seancesCoursUpdate";
     }
 
     @GetMapping("/seancesCoursDelete/{id}")

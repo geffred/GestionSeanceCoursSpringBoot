@@ -28,7 +28,7 @@ main form .boutton input:hover{
     background-color: white;
     border: 1px solid black;
     color: black;
-    transform: scale(.9);
+    transform: scale(.95);
 }
 
 main form input:not(.bt){
@@ -61,5 +61,5 @@ main form .boutton img{
 
 main form .boutton img:hover{
 
-    transform:  scale(.9);
+    transform:  scale(.95);
 }

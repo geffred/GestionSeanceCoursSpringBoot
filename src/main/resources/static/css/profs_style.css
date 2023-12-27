@@ -34,7 +34,7 @@ table td a:hover{
     background: transparent;
     border-color:rgb(230, 0, 0);
     color: rgb(16, 16, 16);
-    transform: scale(95%);
+    transform: scale(.95);
 }
 
 
@@ -50,7 +50,7 @@ main .quick_btn a{
 
 main .quick_btn a:hover{
 
-   transform: scale(.9);
+   transform: scale(.95);
 
 }
 

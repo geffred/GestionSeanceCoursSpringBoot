@@ -43,11 +43,12 @@
                 
                 <div class="row">
                     <div class="col-lg-6">
-                        <input class="form-control" type="text" placeholder="Recherche cours ..." id="nomCours" name="nomCours" >
+                        <input class="form-control" type="text" placeholder="Recherche un cours ..." th:value="${nomSearch}" id="nomCours" name="nomCours" >
                     </div>
         
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 my-1">
                         <select id="jours" name="jours" class="form-select">
+                            <option value="">Selectionner un jour...</option>
                             <option th:value="Lundi">Lundi</option>
                             <option th:value="Mardi">Mardi</option>
                             <option th:value="Mercredi">Mercredi</option>
@@ -56,7 +57,7 @@
                         </select>
                     </div>
                     <div class="col-lg-2">
-                        <input class="form-control" type="submit" value="Rechercher">
+                        <input class="form-control bt" type="submit" value="Rechercher">
                     </div>
                 </div>
                 
@@ -87,8 +88,8 @@
                     <td>
                         <span th:text="${seancesCours.cours.nom}"> </span>
                     </td>
-                    <td><a th:href="@{/seancesCoursUpdate/{id}(id = ${seancesCours.id})}">Update</a></td>
-                    <td><a th:href="@{/seancesCoursDelete/{id}(id = ${seancesCours.id})}">Delete</a></td>
+                    <td><a th:href="@{/seancesCoursUpdate/{id}(id = ${seancesCours.id})}">Editer</a></td>
+                    <td><a th:href="@{/seancesCoursDelete/{id}(id = ${seancesCours.id})}">Supprimer</a></td>
                 </tr>
             </table>
         </div>
