@@ -1,0 +1,65 @@
+main .registration{
+    max-width: 500px;
+    margin: 50px auto;
+    border: 1px solid rgba(43, 43, 43, 0.448);
+    padding: 15px;
+    border-radius: 10px;
+    
+}
+
+main form div{
+
+    margin-top: 15px;
+}
+
+main form .boutton input{
+
+    padding: 2px 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(230, 0, 0);
+    color: white;
+    border: 1px solid transparent;
+    transition: background .2s ease , transform .5s ease;
+}
+
+main form .boutton input:hover{
+
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    transform: scale(.9);
+}
+
+main form input:not(.bt){
+
+    transition: box-shadow .5s ease;
+    border-color:rgb(230, 0, 0);
+}
+
+main form input:not(.bt):focus{
+
+    border-color:rgb(230, 0, 0);
+    box-shadow: 0 0 0 1px red;
+}
+
+main form input:not(.bt):checked{
+
+    background-color:rgb(230, 0, 0);
+    border: transparent;
+}
+
+main form input:not(.bt):hover{
+
+    box-shadow: 5px 5px 1px rgba(230, 0, 0, 0.595);
+}
+
+main form .boutton img{
+
+    transition: transform .5s ease;
+}
+
+main form .boutton img:hover{
+
+    transform:  scale(.9);
+}

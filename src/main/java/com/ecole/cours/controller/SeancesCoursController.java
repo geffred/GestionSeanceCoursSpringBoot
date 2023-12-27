@@ -49,7 +49,7 @@ public class SeancesCoursController {
                  seancesCours = seancesCoursRepository.findByCoursNomContaining(nomCours);
             }
        
-        model.addAttribute("nomSearch",nomCours);
+        
         model.addAttribute("joursSearch", jours);
         model.addAttribute("seancesCours", seancesCours);
         model.addAttribute("seancesFilter",new SeancesCours());
