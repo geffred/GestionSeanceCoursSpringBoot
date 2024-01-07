@@ -77,9 +77,9 @@ public class SeancesCoursController {
     @PostMapping("/seancesCoursRegistrationForm")
     public String seancesCoursRegistrationForm(@Valid SeancesCours seancesCours, Errors errors){
 
-        String nomProf = seancesCours.getProf().getNom();
+        Long profId = seancesCours.getProf().getId();
       
-        List<SeancesCours> seances = seancesCoursRepository.findByProfNom(nomProf);
+        List<SeancesCours> seances = seancesCoursRepository.findByProfId(profId);
 
         if (errors.hasErrors()) {
 

@@ -22,7 +22,7 @@ public class Cours {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp = "^([a-zA-Z][ ]*)+$", message = "Seules les lettres sont acceptées")
+    @Pattern(regexp = "^([a-zA-Z'][ ]*)+$", message = "Seules les lettres sont acceptées")
     @Column(unique = true)
     private String nom;
 
