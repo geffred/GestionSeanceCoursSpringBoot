@@ -22,9 +22,8 @@ table td a{
     text-decoration: none;
     color: white;
     display: inline-block;
-    width: 50%;
     background: rgb(230, 0, 0);
-    padding: 2px 0px;
+    padding: 2px 1em;
     border-radius:15px ;
     border: 1px solid transparent;
     transition: background .2s ease , transform 1s ease;

@@ -153,8 +153,8 @@ public class SeancesCoursController {
 
         List<Prof> profs = profRepository.findAll();
         List<Cours> courses = coursRepository.findAll();
-        String nomProf = seancesCoursUpdate.getProf().getNom();
-        List<SeancesCours> seances = seancesCoursRepository.findByProfNom(nomProf);
+        Long profId = seancesCoursUpdate.getProf().getId();
+        List<SeancesCours> seances = seancesCoursRepository.findByProfId(profId);
 
          model.addAttribute("profs", profs);
          model.addAttribute("courses", courses);
