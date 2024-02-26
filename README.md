@@ -1,6 +1,6 @@
 # GestionSeanceCoursSpringBoot
 Application de gestion des seances de cours en java spring boot
 
-vous trouverez plus de detail sur le projet dans le fichier readme.pdf
+vous trouverez plus de detail sur le projet dans le fichier README.pdf
 
 Merciii...
